@@ -29,7 +29,7 @@ def calcular():
   if(cineco == 'si'):
     descuento += .10
 
-  suma =   (boletas * 12)
+  suma = (boletas * 12.00)
   total = suma - (suma * descuento)
 
   return {
