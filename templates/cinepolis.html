@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <title>El cine</title>
+    <link rel="stylesheet" href="../static/css/app.css" />
+    <title>Cinepolis 2</title>
   </head>
   <body>
     <div class="container">
@@ -12,29 +13,17 @@
         <div class="entradas-salidas">
           <fieldset class="entradas">
             <legend>Entradas</legend>
-            <label
-              >Nombre:
-              <input type="text" name="nombre" />
-            </label>
-            <label
-              >Cantidad compradores:
-              <input type="number" name="compradores" />
-            </label>
-            <label
-              >Tarjeta CINECO:
+            <label>Nombre:<input type="text" name="nombre" /></label>
+            <label>Cantidad compradores:<input type="number" name="compradores" /></label>
+            <label>Tarjeta CINECO:
               <label> <input type="radio" name="cineco" value="si" />Sí </label>
               <label> <input type="radio" name="cineco" value="no" />No </label>
             </label>
-            <label
-              >Cantidad de boletas:
-              <input type="number" name="boletas" />
-            </label>
+            <label>Cantidad de boletas:<input type="number" name="boletas" /></label>
           </fieldset>
           <fieldset class="salidas">
             <legend>Salidas</legend>
-            <label>Total a pagar:
-              <input id="total" type="text" name="total" disabled />
-            </label>
+            <label>Valor a pagar:<input id="total" type="text" name="total" disabled /></label>
           </fieldset>
         </div>
         <fieldset class="acciones">
@@ -49,9 +38,10 @@
         const formData = new FormData(form);
         const total = document.querySelector('#total');
         const notificacion = document.querySelector(".notificacion");
+        const nTitulo = notificacion.querySelector(".n-titulo");
         const nTexto = notificacion.querySelector(".n-texto");
 
-        fetch("/calculos", {
+        fetch("/calcular", {
           method: "POST",
           body: formData,
         })
@@ -63,7 +53,8 @@
               nTexto.textContent = 'No se pueden comprar más de 7 boletos por persona.';
               total.value = `$0 MXN`;
             } else {
-              nTexto.textContent = `Gracias por comprar boletos ${e.nombre}`;
+              nTitulo.textContent = 'Compraste boletos';
+              nTexto.textContent = `Gracias por tu compra ${e.nombre}`;
               total.value = `$${e.total} MXN`;
             }
 
@@ -76,7 +67,7 @@
     </script>
     <div class="notificacion">
       <div>
-        <h2 class="n-titulo">Comprador</h2>
+        <h2 class="n-titulo">Notificación</h2>
         <hr />
         <p class="n-texto">texto</p>
       </div>
